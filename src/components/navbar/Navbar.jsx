@@ -1,0 +1,5 @@
+import {useState} from 'react';
+import {Link} from 'react-router-dom';
+import {useAuth} from '../../lib/auth';
+import './navbar.scss';
+export default function Navbar(){const {user}=useAuth();const [open,setOpen]=useState(false);return <nav><div className="left"><Link to="/" className="logo"><img src="/logo.png" alt=""/><span>SunnyEstate</span></Link><Link to="/">Home</Link><Link to="/list">Properties</Link><Link to="/about">About</Link><Link to="/contact">Contact</Link></div><div className="right">{user?<div className="user"><span>{user.name}</span><Link className="profile" to="/profile">My account</Link></div>:<><Link to="/login">Sign in</Link><Link className="register" to="/register">Sign up</Link></>}<button className="menuIcon" aria-label="Toggle menu" onClick={()=>setOpen(!open)}><img src="/menu.png" alt=""/></button><div className={open?'menu active':'menu'} onClick={()=>setOpen(false)}>{[['/','Home'],['/list','Properties'],['/about','About'],['/contact','Contact'],[user?'/profile':'/login',user?'My account':'Sign in']].map(([p,t])=><Link key={p} to={p}>{t}</Link>)}</div></div></nav>}

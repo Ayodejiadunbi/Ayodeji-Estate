@@ -1,0 +1,4 @@
+import {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import './searchBar.scss';
+export default function SearchBar(){const [type,setType]=useState('buy');const go=useNavigate();return <div className="searchBar"><div className="type">{['buy','rent'].map(t=><button key={t} className={t===type?'active':''} onClick={()=>setType(t)}>{t}</button>)}</div><form onSubmit={e=>{e.preventDefault();const q=new URLSearchParams(new FormData(e.currentTarget));q.set('type',type);go('/list?'+q);}}><input name="city" placeholder="City location" aria-label="City"/><input name="minPrice" type="number" min="0" placeholder="Min price (£)" aria-label="Minimum price"/><input name="maxPrice" type="number" min="0" placeholder="Max price (£)" aria-label="Maximum price"/><button aria-label="Search properties"><img src="/search.png" alt=""/></button></form></div>}
